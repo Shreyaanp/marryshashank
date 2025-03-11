@@ -306,19 +306,20 @@ function checkDesktopMode() {
     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent); // Detect mobile devices
     const desktopModeEnabled = localStorage.getItem("desktopModeEnabled");
 
-    // If user already switched to desktop mode, let them continue
+    // If "Desktop Mode" has been enabled, allow the user in
     if (desktopModeEnabled === "true") {
         return;
     }
 
     // If mobile detected and width too small, show warning
     if (isMobile || window.innerWidth < minWidth) {
+        // Remove all existing content and display warning message
         document.body.innerHTML = `
             <div id="desktopWarning" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd; padding: 20px;">
                 <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
                 <p style="color: white; font-size: 1.2em; max-width: 600px;">
                     This website is best viewed on a desktop. <br><br>
-                    Please enable <strong>'Desktop Site'</strong> in your browser settings.
+                    Please enable <strong>'Desktop Site'</strong> in your browser settings and refresh.
                 </p>
                 <button id="refreshPage" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2em; background-color: white; color: #ff149d; border: none; border-radius: 10px; cursor: pointer;">
                     🔄 I Enabled Desktop Mode
@@ -331,16 +332,27 @@ function checkDesktopMode() {
         document.documentElement.style.touchAction = "none";
         document.documentElement.style.userSelect = "none";
 
-        // Handle Refresh Button Click
+        // Add event listener to refresh button
         document.getElementById('refreshPage').addEventListener('click', () => {
-            localStorage.setItem("desktopModeEnabled", "true"); // Store flag
+            localStorage.setItem("desktopModeEnabled", "true"); // Save flag
             location.reload(); // Reload the page after enabling desktop mode
         });
     }
 }
 
-// Run check on page load
-document.addEventListener('DOMContentLoaded', checkDesktopMode);
+// ✅ Check Desktop Mode on Page Load
+document.addEventListener('DOMContentLoaded', () => {
+    checkDesktopMode(); // Run the check when the page loads
+});
+
+// ✅ If user resizes back to mobile after enabling Desktop Mode, force them to re-enable it
+window.addEventListener('resize', () => {
+    if (localStorage.getItem("desktopModeEnabled") === "true" && window.innerWidth < 1024) {
+        localStorage.removeItem("desktopModeEnabled"); // Remove flag
+        location.reload(); // Force warning to show again
+    }
+});
+
 
 // Prevent zooming when clicking inputs (iOS Fix)
 document.addEventListener("gesturestart", function (e) {

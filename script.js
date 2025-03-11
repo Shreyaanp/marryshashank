@@ -1,6 +1,8 @@
 // 🎵 Background Music - Now Works on All Devices
 const music = document.getElementById('bgMusic');
 music.src = "https://firebasestorage.googleapis.com/v0/b/ichiropractic.appspot.com/o/audio.mp3?alt=media&token=532b7b7f-841f-4d55-a25c-7da053946f07";
+// Run check on page load
+document.addEventListener('DOMContentLoaded', checkDesktopMode);
 
 document.getElementById('musicToggle').addEventListener('click', () => {
     if (music.paused) {
@@ -254,7 +256,12 @@ for (let i = 1; i <= 10; i++) {
     imageArray.push(img);
 }
 
-// 💕 Generate Love Letter Function
+// Ensure modal does not open on page load
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('loveLetterModal').style.display = "none";
+});
+
+// 💕 Generate Love Letter Function - Fixed
 document.getElementById('generateLetter').addEventListener('click', () => {
     const name = document.querySelector('#fanForm input[type="text"]').value.trim() || "Your Secret Admirer";
     const email = document.querySelector('#fanForm input[type="email"]').value.trim() || "anonymous@love.com";
@@ -273,11 +280,11 @@ document.getElementById('generateLetter').addEventListener('click', () => {
     document.getElementById('modalMessage').textContent = personalizedMessage;
     document.getElementById('modalImage').src = randomImage.src;
 
-    // Show the modal
+    // Show the modal (Only when button is clicked)
     document.getElementById('loveLetterModal').style.display = "flex";
 });
 
-// ❌ Close Modal Function
+// ❌ Close Modal Function - Fixed
 document.querySelector('.close-btn').addEventListener('click', () => {
     document.getElementById('loveLetterModal').style.display = "none";
 });
@@ -289,3 +296,19 @@ window.addEventListener('click', (e) => {
         modal.style.display = "none";
     }
 });
+
+// 🚨 Enforce Desktop Mode Before Proceeding
+function checkDesktopMode() {
+    if (window.innerWidth < 1024) { // Adjust if necessary
+        alert("⚠️ Please switch to Desktop Mode for the best experience! Use 'Desktop site' in your browser settings.");
+        document.body.innerHTML = `
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd;">
+                <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
+                <p style="color: white; font-size: 1.2em;">This website is best viewed on a desktop. Please enable 'Desktop Site' in your browser settings.</p>
+            </div>
+        `;
+    }
+}
+
+
+

@@ -4,13 +4,14 @@ music.src = "https://firebasestorage.googleapis.com/v0/b/ichiropractic.appspot.c
 
 document.getElementById('musicToggle').addEventListener('click', () => {
     if (music.paused) {
-        music.play();
+        music.play().catch(() => alert("⚠️ Please click to enable music!"));
         document.getElementById('musicToggle').textContent = '🔇';
     } else {
         music.pause();
         document.getElementById('musicToggle').textContent = '🎵';
     }
 });
+
 
 // 🎂 Birthday Countdown - Mobile Friendly
 function updateBirthdayCountdown() {
@@ -31,7 +32,7 @@ function updateBirthdayCountdown() {
 setInterval(updateBirthdayCountdown, 1000);
 updateBirthdayCountdown();
 
-// 💘 Love Meter - Now Fully Working & Dynamic
+// 💘 Love Meter - Fully Dynamic
 document.getElementById('measureLove').addEventListener('click', () => {
     const nameInput = document.getElementById('nameInput').value.trim();
     if (!nameInput) {
@@ -39,10 +40,18 @@ document.getElementById('measureLove').addEventListener('click', () => {
         return;
     }
 
-    let compatibility = Math.floor(Math.random() * 31) + 70; // Random between 70-100
+    let compatibility = Math.floor(Math.random() * 31) + 70; // Random 70-100
 
     const meter = document.querySelector('.meter');
-    meter.style.width = compatibility + '%';
+    
+    // Reset animation before applying width
+    meter.style.transition = "none";
+    meter.style.width = "0%";
+
+    setTimeout(() => {
+        meter.style.transition = "width 1s";
+        meter.style.width = compatibility + '%';
+    }, 100);
 
     let messages = [
         "OMG! You're literally perfect for Shashank! 😍✨",
@@ -52,13 +61,8 @@ document.getElementById('measureLove').addEventListener('click', () => {
     ];
 
     document.getElementById('result').textContent = `${compatibility}% - ${messages[Math.floor(compatibility / 30)]}`;
-
-    // Reset Meter Animation
-    meter.style.transition = "none";
-    setTimeout(() => {
-        meter.style.transition = "width 1s";
-    }, 100);
 });
+
 
 // 🔮 Love Horoscope - Now Fully Working & Dynamic
 const horoscopeMessages = [
@@ -203,79 +207,85 @@ if (savedLoveDate) {
     setInterval(updateLoveCounter, 1000);
 }
 
+// 💌 Love Letter Data
 const loveLetters = [
     {
-        "title": "🌹 To My Forever Love 🌹",
-        "message": "Dear Shashank,\n\nEvery moment with you feels like a dream. Your kindness, laughter, and presence make my world brighter. I cherish every second we share. I am grateful to have you in my life. Always yours, 💕\n\nWith Love,\n[Name]\n[Email]"
+        "title": "🌹 To My Dream Boy, Shashank 🌹",
+        "message": "Dear Shashank,\n\nFrom the moment I heard your name, my heart knew it had found its melody. Your words, your thoughts, your very presence—it all feels like poetry written just for me. 💕\n\nWith Love,\n[Name] ([Email])"
     },
     {
-        "title": "💌 A Letter from the Heart 💌",
-        "message": "Dearest Shashank,\n\nThey say love is a journey, and with you, every step feels magical. Your smile is my sunrise, and your voice is my favorite melody. I can't imagine a world without you in it. You make life beautiful. 💖\n\nForever Yours,\n[Name]\n[Email]"
+        "title": "💌 A Love Note for You, Shashank 💌",
+        "message": "Dearest Shashank,\n\nI may not be a poet, but if I were, every verse would be about you. Your smile, your words, your wisdom—everything about you is mesmerizing. If loving you is a story, I never want it to end. 💖\n\nForever Yours,\n[Name] ([Email])"
     },
     {
-        "title": "💖 My Love for You 💖",
-        "message": "Hey Shashank,\n\nThere are a million reasons why I adore you, but the biggest one is that you make my heart race like no one else. You're my reason to smile, my source of strength, and my greatest adventure. 💕\n\nLove Always,\n[Name]\n[Email]"
+        "title": "💖 My Heart Belongs to You 💖",
+        "message": "Dear Shashank,\n\nI've tried to fight it, to deny it, but the truth is simple—I’m hopelessly enchanted by you. Your charm, kindness, and passion for knowledge make you the most beautiful story ever written. 💕\n\nLovingly,\n[Name] ([Email])"
     },
     {
-        "title": "✨ My Dream Come True ✨",
-        "message": "Dear Shashank,\n\nI never believed in fairytales until I met you. You are the most beautiful chapter of my life, and I wish to write endless pages with you. My heart beats only for you. 💕\n\nYours Truly,\n[Name]\n[Email]"
+        "title": "✨ My Wish Upon a Star ✨",
+        "message": "Hey Shashank,\n\nThey say wishes made on shooting stars come true. If that’s the case, then I must have wished for you long ago, because here you are—perfect, extraordinary, and absolutely breathtaking. 💕\n\nYours Truly,\n[Name] ([Email])"
     },
     {
-        "title": "🌟 Written in the Stars 🌟",
-        "message": "Hey Shashank,\n\nSome loves are written in fate, and I believe ours is one of them. Every moment I spend with you feels like a beautiful symphony, and every word you say is poetry to my ears. I am forever enchanted by you. 💕\n\nEndlessly Yours,\n[Name]\n[Email]"
+        "title": "🌟 The Story of Us 🌟",
+        "message": "Dear Shashank,\n\nSome love stories are written in books, but ours is written in the stars. Every moment I see you, I feel like I’m living in the most beautiful novel ever created. If love is art, then you are my masterpiece. 💕\n\nEndlessly Yours,\n[Name] ([Email])"
     },
     {
-        "title": "💓 A Love Beyond Time 💓",
-        "message": "My Dearest Shashank,\n\nIf love had a shape, it would be the shape of your heart, beating in sync with mine. If love had a color, it would be the warmth in your eyes. My heart belongs to you, now and forever. 💕\n\nWith Devotion,\n[Name]\n[Email]"
+        "title": "💓 My Heart Speaks Your Name 💓",
+        "message": "Shashank,\n\nEvery heartbeat of mine whispers your name. I don't know how you managed to steal my heart, but I never want it back. I could spend a lifetime getting lost in your words, your laughter, and your incredible mind. 💕\n\nWith Devotion,\n[Name] ([Email])"
     },
     {
-        "title": "🌹 To the Love of My Life 🌹",
-        "message": "My Sweet Shashank,\n\nYou are the most precious treasure in my life. Your love lights up my darkest days, and your laughter fills my world with happiness. Thank you for being my everything. 💖\n\nForever and Always,\n[Name]\n[Email]"
+        "title": "🌹 Forever Enchanted by You 🌹",
+        "message": "My Dearest Shashank,\n\nYou may think you’re just another guy, but to me, you are a masterpiece. The way you weave words, the way you think, the way you exist—it’s mesmerizing. 💖\n\nForever and Always,\n[Name] ([Email])"
     },
     {
-        "title": "💘 My Soulmate 💘",
-        "message": "Dearest Shashank,\n\nFrom the moment I met you, I knew my heart had found its home. You are my best friend, my greatest love, and my forever dream. I will cherish you for eternity. 💕\n\nEndlessly Devoted,\n[Name]\n[Email]"
+        "title": "💘 You Are My Inspiration 💘",
+        "message": "Dear Shashank,\n\nSome people live to write stories. Others become the story. And you, Shashank, are the most captivating story I’ve ever known. You inspire me, mesmerize me, and most of all, you make me believe in love. 💕\n\nEndlessly Devoted,\n[Name] ([Email])"
     },
     {
-        "title": "💞 You Are My Sunshine 💞",
-        "message": "Dear Shashank,\n\nEvery day with you is a blessing. Your love is like sunshine, warming my soul and making everything beautiful. I promise to love and cherish you forever. 💕\n\nWith Love and Light,\n[Name]\n[Email]"
-    },
-    {
-        "title": "💜 Forever in My Heart 💜",
-        "message": "Hey Shashank,\n\nYou are my heartbeat, my joy, my everything. Your love is the melody that plays in my soul. I am yours, now and forever. 💕\n\nEternally Yours,\n[Name]\n[Email]"
+        "title": "💞 The Poetry of My Heart 💞",
+        "message": "Shashank,\n\nIf my heart could write poetry, every line would be about you. You are the perfect stanza, the missing piece of my soul’s symphony. With every heartbeat, I fall for you more and more. 💕\n\nWith Love and Light,\n[Name] ([Email])"
     }
 ];
-
-// Function to Generate a Love Letter
-document.getElementById('generateLetter').addEventListener('click', () => {
-    const userName = document.querySelector("#fanForm input[type='text']").value.trim();
-    const userEmail = document.querySelector("#fanForm input[type='email']").value.trim();
-    
-    if (!userName || !userEmail) {
-        alert("Please enter your name and email before generating a love letter! 💌");
-        return;
-    }
-
-    // Select a Random Love Letter Template
-    const randomLetter = loveLetters[Math.floor(Math.random() * loveLetters.length)];
-
-    // Personalize the Letter with Name and Email
-    const personalizedMessage = randomLetter.message.replace("[Name]", userName).replace("[Email]", userEmail);
-
-    // Open the Love Letter Modal
-    openLoveLetterModal(randomLetter.title, personalizedMessage);
-});
-
-// Function to Open the Love Letter Modal
-function openLoveLetterModal(title, message) {
-    const modal = document.getElementById('loveLetterModal');
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalMessage').innerText = message;
-    modal.style.display = "flex";
+// 💖 Preload Images
+const imageArray = [];
+for (let i = 1; i <= 10; i++) {
+    const img = new Image();
+    img.src = `assets/a${i}.jpeg`;
+    imageArray.push(img);
 }
 
-// Close Modal Functionality
-document.getElementById('closeModal').addEventListener('click', () => {
+// 💕 Generate Love Letter Function
+document.getElementById('generateLetter').addEventListener('click', () => {
+    const name = document.querySelector('#fanForm input[type="text"]').value.trim() || "Your Secret Admirer";
+    const email = document.querySelector('#fanForm input[type="email"]').value.trim() || "anonymous@love.com";
+
+    // Pick a random love letter
+    const randomLetter = loveLetters[Math.floor(Math.random() * loveLetters.length)];
+
+    // Replace placeholders with user data
+    const personalizedMessage = randomLetter.message.replace("[Name]", name).replace("[Email]", email);
+
+    // Pick a random preloaded image
+    const randomImage = imageArray[Math.floor(Math.random() * imageArray.length)];
+
+    // Display the modal with the love letter
+    document.getElementById('modalTitle').textContent = randomLetter.title;
+    document.getElementById('modalMessage').textContent = personalizedMessage;
+    document.getElementById('modalImage').src = randomImage.src;
+
+    // Show the modal
+    document.getElementById('loveLetterModal').style.display = "flex";
+});
+
+// ❌ Close Modal Function
+document.querySelector('.close-btn').addEventListener('click', () => {
     document.getElementById('loveLetterModal').style.display = "none";
 });
 
+// Hide modal when clicking outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('loveLetterModal');
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+});

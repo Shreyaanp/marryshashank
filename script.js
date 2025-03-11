@@ -299,51 +299,47 @@ window.addEventListener('click', (e) => {
     }
 });
 
-
-// 🚨 Enforce Desktop Mode Before Proceeding
-function checkDesktopMode() {
-    const minWidth = 1024; // Minimum width for desktop mode
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent); // Detect mobile devices
-    const desktopModeEnabled = localStorage.getItem("desktopModeEnabled");
-
-    // If "Desktop Mode" has been enabled, allow the user in
-    if (desktopModeEnabled === "true") {
+// 🚨 Show Desktop Mode Warning Every Time the Page Loads
+function showDesktopWarning() {
+    // If warning is already dismissed, don't show it again
+    if (localStorage.getItem("desktopModeEnabled") === "true") {
         return;
     }
 
-    // If mobile detected and width too small, show warning
-    if (isMobile || window.innerWidth < minWidth) {
-        // Remove all existing content and display warning message
-        document.body.innerHTML = `
-            <div id="desktopWarning" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd; padding: 20px;">
-                <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
-                <p style="color: white; font-size: 1.2em; max-width: 600px;">
-                    This website is best viewed on a desktop. <br><br>
-                    Please enable <strong>'Desktop Site'</strong> in your browser settings and refresh.
-                </p>
-                <button id="refreshPage" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2em; background-color: white; color: #ff149d; border: none; border-radius: 10px; cursor: pointer;">
-                    🔄 I Enabled Desktop Mode
-                </button>
-            </div>
-        `;
+    // Create the warning overlay
+    const warningDiv = document.createElement("div");
+    warningDiv.id = "desktopWarning";
+    warningDiv.style.cssText = `
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(255, 119, 221, 0.95);
+        z-index: 9999; text-align: center; padding: 20px;
+    `;
 
-        // Prevent zooming and scrolling
-        document.documentElement.style.overflow = "hidden";
-        document.documentElement.style.touchAction = "none";
-        document.documentElement.style.userSelect = "none";
+    // Add content inside the warning
+    warningDiv.innerHTML = `
+        <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
+        <p style="color: white; font-size: 1.2em; max-width: 600px;">
+            This website is best viewed on a desktop. <br><br>
+            Please enable <strong>'Desktop Site'</strong> in your browser settings and refresh.
+        </p>
+        <button id="enableDesktop" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2em; background-color: white; color: #ff149d; border: none; border-radius: 10px; cursor: pointer;">
+            🔄 I Enabled Desktop Mode
+        </button>
+    `;
 
-        // Add event listener to refresh button
-        document.getElementById('refreshPage').addEventListener('click', () => {
-            localStorage.setItem("desktopModeEnabled", "true"); // Save flag
-            location.reload(); // Reload the page after enabling desktop mode
-        });
-    }
+    // Append the warning to the body
+    document.body.appendChild(warningDiv);
+
+    // 🚀 Hide warning and store flag when button is clicked
+    document.getElementById("enableDesktop").addEventListener("click", () => {
+        localStorage.setItem("desktopModeEnabled", "true"); // Save flag
+        document.getElementById("desktopWarning").remove(); // Remove the warning
+    });
 }
 
-// ✅ Check Desktop Mode on Page Load
-document.addEventListener('DOMContentLoaded', () => {
-    checkDesktopMode(); // Run the check when the page loads
-});
+// ✅ Show warning every time the page loads
+document.addEventListener("DOMContentLoaded", showDesktopWarning);
 
 // ✅ If user resizes back to mobile after enabling Desktop Mode, force them to re-enable it
 window.addEventListener('resize', () => {
@@ -353,8 +349,7 @@ window.addEventListener('resize', () => {
     }
 });
 
-
-// Prevent zooming when clicking inputs (iOS Fix)
+// ✅ Prevent zooming when clicking inputs (iOS Fix)
 document.addEventListener("gesturestart", function (e) {
     e.preventDefault();
 });

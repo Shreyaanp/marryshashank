@@ -1,8 +1,6 @@
 // 🎵 Background Music - Now Works on All Devices
 const music = document.getElementById('bgMusic');
 music.src = "https://firebasestorage.googleapis.com/v0/b/ichiropractic.appspot.com/o/audio.mp3?alt=media&token=532b7b7f-841f-4d55-a25c-7da053946f07";
-// Run check on page load
-document.addEventListener('DOMContentLoaded', checkDesktopMode);
 
 document.getElementById('musicToggle').addEventListener('click', () => {
     if (music.paused) {
@@ -256,7 +254,7 @@ for (let i = 1; i <= 10; i++) {
     imageArray.push(img);
 }
 
-// 💌 Open Love Letter Modal
+// 💌 Open Love Letter Modal (Now Works Properly)
 document.getElementById('generateLetter').addEventListener('click', () => {
     const name = document.querySelector('#fanForm input[type="text"]').value.trim() || "Your Secret Admirer";
     const email = document.querySelector('#fanForm input[type="email"]').value.trim() || "anonymous@love.com";
@@ -270,27 +268,27 @@ document.getElementById('generateLetter').addEventListener('click', () => {
     // Pick a random preloaded image
     const randomImage = imageArray[Math.floor(Math.random() * imageArray.length)];
 
-    // Display the modal with the love letter
+    // Update modal content
     document.getElementById('modalTitle').textContent = randomLetter.title;
     document.getElementById('modalMessage').textContent = personalizedMessage;
     document.getElementById('modalImage').src = randomImage.src;
 
-    // Show the modal with animation
+    // Show the modal correctly
     const modal = document.getElementById('loveLetterModal');
     modal.classList.add('show');
     modal.style.display = "flex";
 });
 
-// ❌ Close Modal Function
+// ❌ Close Modal Function (Fixed)
 document.querySelector('.close-btn').addEventListener('click', () => {
     const modal = document.getElementById('loveLetterModal');
     modal.classList.remove('show');
     setTimeout(() => {
         modal.style.display = "none";
-    }, 400); // Matches CSS transition time
+    }, 400);
 });
 
-// 💕 Hide modal when clicking outside
+// 💕 Hide modal when clicking outside (Fixed)
 window.addEventListener('click', (e) => {
     const modal = document.getElementById('loveLetterModal');
     if (e.target === modal) {
@@ -301,9 +299,15 @@ window.addEventListener('click', (e) => {
     }
 });
 
+
 // 🚨 Enforce Desktop Mode Before Proceeding
 function checkDesktopMode() {
-    if (window.innerWidth < 1024) { // Adjust breakpoint if necessary
+    const minWidth = 1024; // Minimum width for desktop mode
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent); // Detect mobile devices
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    // If on mobile & width is too small, enforce desktop mode
+    if (isMobile || window.innerWidth < minWidth) {
         document.body.innerHTML = `
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd; padding: 20px;">
                 <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
@@ -317,12 +321,22 @@ function checkDesktopMode() {
             </div>
         `;
 
-        // Add event listener for refresh button
+        // Prevent zooming and scrolling
+        document.documentElement.style.overflow = "hidden";
+        document.documentElement.style.touchAction = "none";
+        document.documentElement.style.userSelect = "none";
+
+        // Reload button functionality
         document.getElementById('refreshPage').addEventListener('click', () => {
-            location.reload(); // Reloads the page to check if desktop mode is enabled
+            location.reload(); // Reload after switching to desktop mode
         });
     }
 }
 
 // Run check on page load
 document.addEventListener('DOMContentLoaded', checkDesktopMode);
+
+// Prevent zooming when clicking inputs (iOS Fix)
+document.addEventListener("gesturestart", function (e) {
+    e.preventDefault();
+});

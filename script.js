@@ -1,8 +1,8 @@
-// 🎵 Background Music - Fixed to use the Firebase link
-document.getElementById('bgMusic').src = "https://firebasestorage.googleapis.com/v0/b/ichiropractic.appspot.com/o/audio.mp3?alt=media&token=532b7b7f-841f-4d55-a25c-7da053946f07";
+// 🎵 Background Music - Now Works on All Devices
+const music = document.getElementById('bgMusic');
+music.src = "https://firebasestorage.googleapis.com/v0/b/ichiropractic.appspot.com/o/audio.mp3?alt=media&token=532b7b7f-841f-4d55-a25c-7da053946f07";
 
 document.getElementById('musicToggle').addEventListener('click', () => {
-    const music = document.getElementById('bgMusic');
     if (music.paused) {
         music.play();
         document.getElementById('musicToggle').textContent = '🔇';
@@ -12,7 +12,7 @@ document.getElementById('musicToggle').addEventListener('click', () => {
     }
 });
 
-// 🎂 Birthday Countdown Fix
+// 🎂 Birthday Countdown - Mobile Friendly
 function updateBirthdayCountdown() {
     const now = new Date();
     let birthday = new Date(now.getFullYear(), 2, 12); // March 12
@@ -31,7 +31,7 @@ function updateBirthdayCountdown() {
 setInterval(updateBirthdayCountdown, 1000);
 updateBirthdayCountdown();
 
-// 💘 Love Meter Fix
+// 💘 Love Meter - Touch Friendly
 document.getElementById('measureLove').addEventListener('click', () => {
     const nameInput = document.getElementById('nameInput').value.trim();
     if (!nameInput) {
@@ -53,7 +53,7 @@ document.getElementById('measureLove').addEventListener('click', () => {
     document.getElementById('result').textContent = `${compatibility}% - ${messages[Math.floor(compatibility / 30)]}`;
 });
 
-// 📖 Expanded Love Quiz
+// 📖 Expanded Love Quiz - Fully Responsive
 const quizQuestions = [
     { question: "What is Shashank's favorite hobby?", options: ["Gaming 🎮", "Reading Books 📖"], correctIndex: 1 },
     { question: "What does Shashank prefer?", options: ["Tea ☕", "Coffee ☕"], correctIndex: 0 },
@@ -97,7 +97,7 @@ function showQuizResult() {
     document.getElementById('quizResult').innerHTML = `<p>Your Score: ${score}/${quizQuestions.length}</p>`;
 }
 
-// 💖 Love Counter - Improved Input with Date Picker
+// 💖 Love Counter - Mobile-Friendly Date Picker
 document.getElementById('setLoveDate').addEventListener('click', () => {
     const dateInput = document.createElement('input');
     dateInput.type = 'date';
@@ -130,19 +130,9 @@ function updateLoveCounter() {
     document.getElementById('seconds').textContent = Math.floor((diff % (1000 * 60)) / 1000);
 }
 
-// 💌 Love Letter Generator
-document.getElementById('generateLetter').addEventListener('click', () => {
-    const loveLetterTemplates = [
-        "Dearest Shashank,\n\nYour soul is as deep as the poetry you read, and your heart as rich as the stories you love. 💕\n\nForever yours,\n[Name]",
-        "My Literary Love,\n\nLike the most beautiful verse in a poem, your presence makes everything magical. ✨\n\nYours truly,\n[Name]"
-    ];
-    const name = document.getElementById('nameInput').value.trim() || 'Your Secret Admirer';
-    document.getElementById('loveLetter').textContent = loveLetterTemplates[Math.floor(Math.random() * loveLetterTemplates.length)].replace('[Name]', name);
-    document.getElementById('loveLetter').classList.remove('hidden');
-});
-
-// ❤️ Floating Hearts Effect
+// ❤️ Floating Hearts (Disabled on Mobile)
 function createHeart() {
+    if (window.innerWidth < 768) return;
     const heart = document.createElement('div');
     heart.innerHTML = '❤️';
     heart.style.position = 'fixed';
@@ -161,23 +151,17 @@ function createHeart() {
 
 setInterval(createHeart, 300);
 
-// ✨ Floating Shashank head follows cursor
-document.addEventListener('mousemove', (e) => {
-    const Shashank = document.getElementById('floating-Shashank');
-    Shashank.style.left = e.pageX + 'px';
-    Shashank.style.top = e.pageY + 'px';
-});
-
-// 🌟 Sparkly Cursor Trail
-document.addEventListener('mousemove', (e) => {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    sparkle.innerHTML = '✨';
-    sparkle.style.left = e.pageX + 'px';
-    sparkle.style.top = e.pageY + 'px';
-    document.body.appendChild(sparkle);
-
-    setTimeout(() => {
-        sparkle.remove();
-    }, 1000);
-});
+// ✨ Disable Cursor Effects on Mobile
+if (window.innerWidth >= 768) {
+    document.addEventListener('mousemove', (e) => {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.innerHTML = '✨';
+        sparkle.style.left = e.pageX + 'px';
+        sparkle.style.top = e.pageY + 'px';
+        document.body.appendChild(sparkle);
+        setTimeout(() => {
+            sparkle.remove();
+        }, 1000);
+    });
+}

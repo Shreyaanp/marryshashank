@@ -304,19 +304,24 @@ window.addEventListener('click', (e) => {
 function checkDesktopMode() {
     const minWidth = 1024; // Minimum width for desktop mode
     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent); // Detect mobile devices
-    const userAgent = navigator.userAgent.toLowerCase();
+    const desktopModeEnabled = localStorage.getItem("desktopModeEnabled");
 
-    // If on mobile & width is too small, enforce desktop mode
+    // If user already switched to desktop mode, let them continue
+    if (desktopModeEnabled === "true") {
+        return;
+    }
+
+    // If mobile detected and width too small, show warning
     if (isMobile || window.innerWidth < minWidth) {
         document.body.innerHTML = `
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd; padding: 20px;">
+            <div id="desktopWarning" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd; padding: 20px;">
                 <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
                 <p style="color: white; font-size: 1.2em; max-width: 600px;">
                     This website is best viewed on a desktop. <br><br>
                     Please enable <strong>'Desktop Site'</strong> in your browser settings.
                 </p>
                 <button id="refreshPage" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2em; background-color: white; color: #ff149d; border: none; border-radius: 10px; cursor: pointer;">
-                    🔄 Refresh
+                    🔄 I Enabled Desktop Mode
                 </button>
             </div>
         `;
@@ -326,9 +331,10 @@ function checkDesktopMode() {
         document.documentElement.style.touchAction = "none";
         document.documentElement.style.userSelect = "none";
 
-        // Reload button functionality
+        // Handle Refresh Button Click
         document.getElementById('refreshPage').addEventListener('click', () => {
-            location.reload(); // Reload after switching to desktop mode
+            localStorage.setItem("desktopModeEnabled", "true"); // Store flag
+            location.reload(); // Reload the page after enabling desktop mode
         });
     }
 }

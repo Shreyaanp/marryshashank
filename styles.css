@@ -499,7 +499,7 @@ footer {
     padding: 25px;
     border-radius: 15px;
     text-align: center;
-    max-width: 400px;
+    max-width: 600px;
     width: 90%;
     position: relative;
     box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
@@ -581,14 +581,15 @@ footer {
 
 /* 🎨 Responsive Adjustments */
 @media (max-width: 600px) {
+
     .modal-content {
         max-width: 90%;
         padding: 20px;
     }
 
     .love-image {
-        width: 130px;
-        height: 130px;
+        width: 250px;
+        height: 2500px;
     }
 }
 

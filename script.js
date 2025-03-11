@@ -300,15 +300,23 @@ window.addEventListener('click', (e) => {
 // 🚨 Enforce Desktop Mode Before Proceeding
 function checkDesktopMode() {
     if (window.innerWidth < 1024) { // Adjust if necessary
-        alert("⚠️ Please switch to Desktop Mode for the best experience! Use 'Desktop site' in your browser settings.");
         document.body.innerHTML = `
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd;">
                 <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
                 <p style="color: white; font-size: 1.2em;">This website is best viewed on a desktop. Please enable 'Desktop Site' in your browser settings.</p>
+                <button id="refreshPage" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2em; background-color: white; color: #ff149d; border: none; border-radius: 10px; cursor: pointer;">🔄 Refresh</button>
             </div>
         `;
+
+        // Add event listener for refresh
+        document.getElementById('refreshPage').addEventListener('click', () => {
+            location.reload(); // Reload the page to show the desktop view
+        });
     }
 }
+
+// Run check on page load
+document.addEventListener('DOMContentLoaded', checkDesktopMode);
 
 
 

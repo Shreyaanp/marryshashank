@@ -3,70 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shashank's Birthday</title>
-    <link rel="stylesheet" href="shashank.css">
+    <title>💖 Marry Shashank Shukla Club 💖</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Happy Birthday, Shashank! 🎉</h1>
+    <div class="video-container">
+        <div class="content">
+            <h1>💝 Marry Shashank Shukla Club 💝</h1>
+            <p class="tagline">Because he's not just a programmer, he's a dreamboat! 😍</p>
+        </div>
+        <audio id="bgMusic" loop>
+            <source src="assets/audio.mp3" type="audio/mp3">
+        </audio>
+        <button id="musicToggle" class="music-btn">🎵</button>
+    </div>
 
-        <!-- Love Meter -->
-        <section id="love-meter">
-            <h2>Love Meter ❤️</h2>
-            <input type="text" id="visitorName" placeholder="Enter your name">
-            <button onclick="calculateLove()">Check Love</button>
-            <p id="love-result"></p>
-        </section>
-
-        <!-- Love Horoscope -->
-        <section id="love-horoscope">
-            <h2>Your Love Horoscope 🔮</h2>
-            <p id="horoscope"></p>
-        </section>
-
-        <!-- Love Counter -->
-        <section id="love-counter">
-            <h2>Days Since Shashank Stole Your Heart 💘</h2>
-            <p id="love-days"></p>
-        </section>
-
-        <!-- Birthday Countdown -->
-        <section id="birthday-countdown">
-            <h2>Countdown to Next Birthday 🎂</h2>
-            <p id="countdown"></p>
-        </section>
-
-        <!-- Join the Fan Club -->
-        <section id="fan-club">
-            <h2>Join the Fan Club 💌</h2>
-            <input type="email" id="email" placeholder="Your Email">
-            <button onclick="sendEmail()">Send Love</button>
-            <button onclick="generateLoveLetter()">Generate Love Letter 💖</button>
-        </section>
-
-        <!-- Photo & Video Gallery -->
-        <section id="photo-video-gallery">
-            <h2>Photo & Video Gallery 📸🎥</h2>
-            <div id="gallery">
-                <img src="dummy1.jpg" alt="Shashank's Memory">
-                <img src="dummy2.jpg" alt="Shashank's Fun Moment">
-                <video controls>
-                    <source src="dummy-video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+    <div class="main-content">
+        <section class="about">
+            <h2>✨ About Our Dream Boy ✨</h2>
+            <div class="photo-gallery">
+                <img src="assets/image1.jpeg" alt="Shashank Photo 1" class="floating">
+                <img src="assets/image2.jpeg" alt="Shashank Photo 2" class="floating">
+                <img src="assets/image3.jpeg" alt="Shashank Photo 3" class="floating">
+            </div>
+            <div class="bio">
+                <p>🌟 Literary Soul at Persistent Systems</p>
+                <p>📚 Poetry | Fiction | Classic Literature Enthusiast</p>
+                <p>🎓 B.Tech from lovely VIT Vellore</p>
+                <p>💕 Making life beautiful, one page at a time!</p>
+                <div class="insta-container">
+                    <a href="https://www.instagram.com/steiner_shukla" target="_blank" class="insta-link">
+                        <span class="insta-icon">📸</span>
+                        <span class="insta-text">Follow Your Dream Boy! 😍</span>
+                        <div class="insta-hearts">💝💖💗</div>
+                    </a>
+                </div>
             </div>
         </section>
 
-        <!-- Shashank’s Birthday Wish Wall -->
-        <section id="wish-wall">
-            <h2>Shashank’s Birthday Wish Wall 🎊</h2>
-            <div id="wishes-container"></div>
-            <input type="text" id="wishName" placeholder="Your Name">
-            <textarea id="wishMessage" placeholder="Your Birthday Wish"></textarea>
-            <button onclick="submitWish()">Submit Wish</button>
+        <section class="love-meter">
+            <h2>💘 Love Meter 💘</h2>
+            <div class="love-input">
+                <input type="text" id="nameInput" placeholder="Enter your name" required>
+                <button id="measureLove">Calculate Love! 💗</button>
+            </div>
+            <div class="meter-container">
+                <div class="meter"></div>
+            </div>
+            <p id="result"></p>
+        </section>
+
+        <section class="love-quiz">
+            <h2>💘 Know Your Compatibility Quiz 💘</h2>
+            <div class="quiz-container">
+                <div class="question-container hidden">
+                    <p class="question-text"></p>
+                    <div class="options">
+                        <button class="option-btn"></button>
+                        <span class="vs">VS</span>
+                        <button class="option-btn"></button>
+                    </div>
+                </div>
+                <button id="startQuiz">Start Love Quiz! 💝</button>
+                <div id="quizResult" class="hidden"></div>
+            </div>
+        </section>
+
+        <section class="love-horoscope">
+            <h2>✨ Daily Love Horoscope ✨</h2>
+            <div class="horoscope-container">
+                <input type="date" id="birthDate">
+                <button id="getHoroscope">Get Today's Love Reading! 🌟</button>
+                <p id="horoscopeResult"></p>
+            </div>
+        </section>
+
+        <section class="love-counter">
+            <h2>💖 Love Counter 💖</h2>
+            <div class="counter-container">
+                <p>Days since Shashank stole your heart:</p>
+                <div class="counter">
+                    <span id="days">0</span> days
+                    <span id="hours">0</span> hours
+                    <span id="minutes">0</span> minutes
+                    <span id="seconds">0</span> seconds
+                </div>
+                <button id="setLoveDate">Set the Day! 📅</button>
+            </div>
+        </section>
+
+        <section class="birthday-countdown">
+            <h2>🎂 Birthday Countdown 🎂</h2>
+            <div class="countdown-container">
+                <p>Time until Shashank's special day (March 12):</p>
+                <div class="counter">
+                    <span id="bday-days">0</span> days
+                    <span id="bday-hours">0</span> hours
+                    <span id="bday-minutes">0</span> minutes
+                    <span id="bday-seconds">0</span> seconds
+                </div>
+                <p id="birthday-message" class="hidden">🎉 Happy Birthday Shashank! 🎉</p>
+            </div>
+        </section>
+
+        <section class="fan-club">
+            <h2>💝 Join The Fan Club! 💝</h2>
+            <div class="love-letter-container">
+                <button id="generateLetter">Generate Love Letter 💌</button>
+                <div id="loveLetter" class="hidden"></div>
+            </div>
+            <form id="fanForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Why do you love Shashank?" required></textarea>
+                <button type="submit">Submit with Love! 💌</button>
+            </form>
         </section>
     </div>
 
-    <script src="shashank.js"></script>
+    <footer>
+        <p>Made with 💖 by Shashank's Secret Admirers | Not stalking, just admiring!</p>
+    </footer>
+
+    <div class="floating-hearts"></div>
+    <div id="floating-Shashank">👨‍💻</div>
+    <script src="script.js"></script>
 </body>
 </html>

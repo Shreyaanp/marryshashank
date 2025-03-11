@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashank's Birthday</title>
+    <link rel="stylesheet" href="shashank.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Birthday, Shashank! 🎉</h1>
+
+        <!-- Love Meter -->
+        <section id="love-meter">
+            <h2>Love Meter ❤️</h2>
+            <input type="text" id="visitorName" placeholder="Enter your name">
+            <button onclick="calculateLove()">Check Love</button>
+            <p id="love-result"></p>
+        </section>
+
+        <!-- Love Horoscope -->
+        <section id="love-horoscope">
+            <h2>Your Love Horoscope 🔮</h2>
+            <p id="horoscope"></p>
+        </section>
+
+        <!-- Love Counter -->
+        <section id="love-counter">
+            <h2>Days Since Shashank Stole Your Heart 💘</h2>
+            <p id="love-days"></p>
+        </section>
+
+        <!-- Birthday Countdown -->
+        <section id="birthday-countdown">
+            <h2>Countdown to Next Birthday 🎂</h2>
+            <p id="countdown"></p>
+        </section>
+
+        <!-- Join the Fan Club -->
+        <section id="fan-club">
+            <h2>Join the Fan Club 💌</h2>
+            <input type="email" id="email" placeholder="Your Email">
+            <button onclick="sendEmail()">Send Love</button>
+            <button onclick="generateLoveLetter()">Generate Love Letter 💖</button>
+        </section>
+
+        <!-- Photo & Video Gallery -->
+        <section id="photo-video-gallery">
+            <h2>Photo & Video Gallery 📸🎥</h2>
+            <div id="gallery">
+                <img src="dummy1.jpg" alt="Shashank's Memory">
+                <img src="dummy2.jpg" alt="Shashank's Fun Moment">
+                <video controls>
+                    <source src="dummy-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+        <!-- Shashank’s Birthday Wish Wall -->
+        <section id="wish-wall">
+            <h2>Shashank’s Birthday Wish Wall 🎊</h2>
+            <div id="wishes-container"></div>
+            <input type="text" id="wishName" placeholder="Your Name">
+            <textarea id="wishMessage" placeholder="Your Birthday Wish"></textarea>
+            <button onclick="submitWish()">Submit Wish</button>
+        </section>
+    </div>
+
+    <script src="shashank.js"></script>
+</body>
+</html>

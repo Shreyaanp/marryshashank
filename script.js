@@ -301,9 +301,8 @@ window.addEventListener('click', (e) => {
 
 // 🚨 Show Desktop Mode Warning Every Time the Page Loads
 function showDesktopWarning() {
-    // If warning is already dismissed, don't show it again
     if (localStorage.getItem("desktopModeEnabled") === "true") {
-        return;
+        return; // Don't show if the user already enabled desktop mode
     }
 
     // Create the warning overlay
@@ -331,11 +330,17 @@ function showDesktopWarning() {
     // Append the warning to the body
     document.body.appendChild(warningDiv);
 
-    // 🚀 Hide warning and store flag when button is clicked
+    // ✅ Fix: Restore Scrolling & Remove Warning Properly
     document.getElementById("enableDesktop").addEventListener("click", () => {
         localStorage.setItem("desktopModeEnabled", "true"); // Save flag
-        document.getElementById("desktopWarning").remove(); // Remove the warning
+        document.body.style.overflow = "auto"; // Restore scrolling
+        document.documentElement.style.overflow = "auto"; // Fix mobile scrolling issue
+        document.getElementById("desktopWarning").remove(); // Remove warning properly
     });
+
+    // ✅ Prevent Scrolling When Warning is Active
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
 }
 
 // ✅ Show warning every time the page loads

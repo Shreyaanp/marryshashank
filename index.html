@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="video-container">
         <div class="content">
@@ -81,17 +83,22 @@
 
         <section class="love-counter">
             <h2>💖 Love Counter 💖</h2>
-            <div class="counter-container">
-                <p>Days since Shashank stole your heart:</p>
-                <div class="counter">
+            <div class="love-counter-container">
+                <p>When did Shashank steal your heart? 💕</p>
+                <input type="date" id="loveDateInput">
+                <button id="setLoveDate">Set the Date! 📅</button>
+            </div>
+            <div class="counter">
+                <p>Days since you fell for Shashank:</p>
+                <div>
                     <span id="days">0</span> days
                     <span id="hours">0</span> hours
                     <span id="minutes">0</span> minutes
                     <span id="seconds">0</span> seconds
                 </div>
-                <button id="setLoveDate">Set the Day! 📅</button>
             </div>
         </section>
+
 
         <section class="birthday-countdown">
             <h2>🎂 Birthday Countdown 🎂</h2>
@@ -120,6 +127,16 @@
                 <button type="submit">Submit with Love! 💌</button>
             </form>
         </section>
+        <!-- Love Letter Modal -->
+        <div id="loveLetterModal" class="modal">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <p id="modalMessage"></p>
+            </div>
+        </div>
+
+
     </div>
 
     <footer>
@@ -130,4 +147,5 @@
     <div id="floating-Shashank">👨‍💻</div>
     <script src="script.js"></script>
 </body>
+
 </html>

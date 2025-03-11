@@ -457,3 +457,80 @@ footer {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
 } 
+
+.love-counter-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.love-counter-container input {
+    padding: 10px;
+    font-size: 1.2em;
+    border: 2px solid var(--primary-pink);
+    border-radius: 10px;
+}
+
+.love-counter .counter {
+    font-size: 1.5em;
+    text-align: center;
+    background: rgb(255, 13, 13);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Love Letter Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.5s;
+}
+
+.modal-content h2 {
+    font-family: 'Pacifico', cursive;
+    color: var(--love-red);
+    font-size: 2em;
+}
+
+.modal-content p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3em;
+    color: #333;
+    margin-top: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+    color: var(--love-red);
+}
+
+.close:hover {
+    color: var(--primary-pink);
+}
+
+/* Modal Fade-in Effect */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}

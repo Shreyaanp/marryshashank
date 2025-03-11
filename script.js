@@ -31,7 +31,7 @@ function updateBirthdayCountdown() {
 setInterval(updateBirthdayCountdown, 1000);
 updateBirthdayCountdown();
 
-// 💘 Love Meter - Touch Friendly
+// 💘 Love Meter - Now Fully Working & Dynamic
 document.getElementById('measureLove').addEventListener('click', () => {
     const nameInput = document.getElementById('nameInput').value.trim();
     if (!nameInput) {
@@ -39,9 +39,10 @@ document.getElementById('measureLove').addEventListener('click', () => {
         return;
     }
 
-    let compatibility = Math.max(70, Math.abs(nameInput.length * 17 % 100));
+    let compatibility = Math.floor(Math.random() * 31) + 70; // Random between 70-100
 
-    document.querySelector('.meter').style.width = compatibility + '%';
+    const meter = document.querySelector('.meter');
+    meter.style.width = compatibility + '%';
 
     let messages = [
         "OMG! You're literally perfect for Shashank! 😍✨",
@@ -51,6 +52,38 @@ document.getElementById('measureLove').addEventListener('click', () => {
     ];
 
     document.getElementById('result').textContent = `${compatibility}% - ${messages[Math.floor(compatibility / 30)]}`;
+
+    // Reset Meter Animation
+    meter.style.transition = "none";
+    setTimeout(() => {
+        meter.style.transition = "width 1s";
+    }, 100);
+});
+
+// 🔮 Love Horoscope - Now Fully Working & Dynamic
+const horoscopeMessages = [
+    "Today is perfect for a romantic poetry session! 📖💖",
+    "Venus is shining on your love life! Send a sweet message today! ✨",
+    "A surprise connection might happen today! Stay open! 💕",
+    "Your love energy is high! A perfect day to express your feelings! 💌",
+    "Something magical is waiting for you today! Believe in love! 🌟",
+    "A little flirtation goes a long way today! 😉💖",
+    "Expect a heartwarming surprise from someone special! 🎁",
+    "Good vibes are flowing! Love is in the air! 💞",
+    "A past connection might resurface today! Keep an open heart! 💭",
+    "Let your heart lead the way today! Follow your feelings! ❤️"
+];
+
+document.getElementById('getHoroscope').addEventListener('click', () => {
+    const birthDate = document.getElementById('birthDate').value;
+    if (!birthDate) {
+        alert('Please enter your birth date first! 📅');
+        return;
+    }
+
+    // Generate a daily horoscope based on date
+    const dateNum = new Date().getDate();
+    document.getElementById('horoscopeResult').textContent = horoscopeMessages[dateNum % horoscopeMessages.length];
 });
 
 // 📖 Expanded Love Quiz - Fully Responsive
@@ -95,39 +128,6 @@ function checkAnswer(index) {
 function showQuizResult() {
     document.getElementById('quizResult').classList.remove('hidden');
     document.getElementById('quizResult').innerHTML = `<p>Your Score: ${score}/${quizQuestions.length}</p>`;
-}
-
-// 💖 Love Counter - Mobile-Friendly Date Picker
-document.getElementById('setLoveDate').addEventListener('click', () => {
-    const dateInput = document.createElement('input');
-    dateInput.type = 'date';
-    dateInput.style.position = 'fixed';
-    dateInput.style.top = '50%';
-    dateInput.style.left = '50%';
-    dateInput.style.transform = 'translate(-50%, -50%)';
-    dateInput.style.padding = '10px';
-    dateInput.style.fontSize = '16px';
-    dateInput.style.zIndex = '9999';
-
-    document.body.appendChild(dateInput);
-    dateInput.focus();
-
-    dateInput.addEventListener('change', () => {
-        loveDate = new Date(dateInput.value);
-        updateLoveCounter();
-        setInterval(updateLoveCounter, 1000);
-        document.body.removeChild(dateInput);
-    });
-});
-
-function updateLoveCounter() {
-    if (!loveDate) return;
-    const now = new Date();
-    const diff = now - loveDate;
-    document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById('hours').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById('seconds').textContent = Math.floor((diff % (1000 * 60)) / 1000);
 }
 
 // ❤️ Floating Hearts (Disabled on Mobile)

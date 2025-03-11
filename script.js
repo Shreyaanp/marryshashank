@@ -298,3 +298,63 @@ window.addEventListener('click', (e) => {
         }, 400);
     }
 });
+
+// 🚨 Show Desktop Mode Warning Every Time the Page Loads
+function showDesktopWarning() {
+    if (localStorage.getItem("desktopModeEnabled") === "true") {
+        return; // Don't show if the user already enabled desktop mode
+    }
+
+    // Create the warning overlay
+    const warningDiv = document.createElement("div");
+    warningDiv.id = "desktopWarning";
+    warningDiv.style.cssText = `
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(255, 119, 221, 0.95);
+        z-index: 9999; text-align: center; padding: 20px;
+    `;
+
+    // Add content inside the warning
+    warningDiv.innerHTML = `
+        <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
+        <p style="color: white; font-size: 1.2em; max-width: 600px;">
+            This website is best viewed on a desktop. <br><br>
+            Please enable <strong>'Desktop Site'</strong> in your browser settings and refresh.
+        </p>
+        <button id="enableDesktop" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2em; background-color: white; color: #ff149d; border: none; border-radius: 10px; cursor: pointer;">
+            🔄 I Enabled Desktop Mode
+        </button>
+    `;
+
+    // Append the warning to the body
+    document.body.appendChild(warningDiv);
+
+    // ✅ Fix: Restore Scrolling & Remove Warning Properly
+    document.getElementById("enableDesktop").addEventListener("click", () => {
+        localStorage.setItem("desktopModeEnabled", "true"); // Save flag
+        document.body.style.overflow = "auto"; // Restore scrolling
+        document.documentElement.style.overflow = "auto"; // Fix mobile scrolling issue
+        document.getElementById("desktopWarning").remove(); // Remove warning properly
+    });
+
+    // ✅ Prevent Scrolling When Warning is Active
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+}
+
+// ✅ Show warning every time the page loads
+document.addEventListener("DOMContentLoaded", showDesktopWarning);
+
+// ✅ If user resizes back to mobile after enabling Desktop Mode, force them to re-enable it
+window.addEventListener('resize', () => {
+    if (localStorage.getItem("desktopModeEnabled") === "true" && window.innerWidth < 1024) {
+        localStorage.removeItem("desktopModeEnabled"); // Remove flag
+        location.reload(); // Force warning to show again
+    }
+});
+
+// ✅ Prevent zooming when clicking inputs (iOS Fix)
+document.addEventListener("gesturestart", function (e) {
+    e.preventDefault();
+});

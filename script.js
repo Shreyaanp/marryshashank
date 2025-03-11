@@ -213,11 +213,11 @@ if (savedLoveDate) {
 const loveLetters = [
     {
         "title": "🌹 To My Dream Boy, Shashank 🌹",
-        "message": "Dear Shashank,\n\nFrom the moment I heard your name, my heart knew it had found its melody. Your words, your thoughts, your very presence—it all feels like poetry written just for me. 💕\n\nWith Love,\n[Name]\n[Email]"
+        "message": "Dear Shashank,\n\nFrom the moment I heard your name, my heart knew it had found its melody. Your words, your thoughts, your very presence—it all feels like poetry written just for me. 💕\n\nWith Love, \n [Name]\n[Email]"
     },
     {
         "title": "💌 A Love Note for You, Shashank 💌",
-        "message": "Dearest Shashank,\n\nI may not be a poet, but if I were, every verse would be about you. Your smile, your words, your wisdom—everything about you is mesmerizing. If loving you is a story, I never want it to end. 💖\n\nForever Yours,\n[Name]\n[Email]"
+        "message": "Dearest Shashank,\n\nI may not be a poet, but if I were, every verse would be about you. Your smile, your words, your wisdom—everything about you is mesmerizing. If loving you is a story, I never want it to end. 💖\n\nForever Yours, \n [Name]\n[Email]"
     },
     {
         "title": "💖 My Heart Belongs to You 💖",
@@ -303,24 +303,26 @@ window.addEventListener('click', (e) => {
 
 // 🚨 Enforce Desktop Mode Before Proceeding
 function checkDesktopMode() {
-    if (window.innerWidth < 1024) { // Adjust if necessary
+    if (window.innerWidth < 1024) { // Adjust breakpoint if necessary
         document.body.innerHTML = `
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd;">
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background-color: #ff77dd; padding: 20px;">
                 <h1 style="color: white; font-size: 2em;">🔍 Switch to Desktop Mode!</h1>
-                <p style="color: white; font-size: 1.2em;">This website is best viewed on a desktop. Please enable 'Desktop Site' in your browser settings.</p>
-                <button id="refreshPage" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2em; background-color: white; color: #ff149d; border: none; border-radius: 10px; cursor: pointer;">🔄 Refresh</button>
+                <p style="color: white; font-size: 1.2em; max-width: 600px;">
+                    This website is best viewed on a desktop. <br><br>
+                    Please enable <strong>'Desktop Site'</strong> in your browser settings.
+                </p>
+                <button id="refreshPage" style="margin-top: 20px; padding: 10px 20px; font-size: 1.2em; background-color: white; color: #ff149d; border: none; border-radius: 10px; cursor: pointer;">
+                    🔄 Refresh
+                </button>
             </div>
         `;
 
-        // Add event listener for refresh
+        // Add event listener for refresh button
         document.getElementById('refreshPage').addEventListener('click', () => {
-            location.reload(); // Reload the page to show the desktop view
+            location.reload(); // Reloads the page to check if desktop mode is enabled
         });
     }
 }
 
 // Run check on page load
 document.addEventListener('DOMContentLoaded', checkDesktopMode);
-
-
-
